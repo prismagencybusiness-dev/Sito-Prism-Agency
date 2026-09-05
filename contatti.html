@@ -105,14 +105,21 @@
         <div data-reveal>
           <div class="contact-form-card">
             <!--
-              Collegare il form a Formspree (gratuito):
-              1. Crea un account su https://formspree.io e un nuovo form.
-              2. Copia l'endpoint fornito (tipo https://formspree.io/f/xxxxxxxx).
-              3. Sostituisci "YOUR_FORM_ID" qui sotto con l'ID del tuo form.
-              Il form usa fetch + JSON (vedi js/main.js), quindi resta su questa pagina
-              e mostra un messaggio di conferma invece di reindirizzare altrove.
+              Collegato a Netlify Forms — funziona automaticamente SOLO quando il sito
+              è pubblicato su Netlify (build o drag&drop): Netlify analizza l'HTML statico
+              al deploy e registra ogni <form data-netlify="true"> che trova.
+              Non serve nessuna chiave o account esterno da configurare qui.
+              In locale (file:// o npm run serve) l'invio non avrà un vero backend:
+              è normale che fallisca finché non è online su Netlify.
+              Il form usa fetch (vedi js/main.js) per restare sulla pagina e mostrare
+              il messaggio di conferma invece di ricaricare.
             -->
-            <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <form id="contact-form" name="contatti" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+              <input type="hidden" name="form-name" value="contatti">
+              <p class="hp-field" aria-hidden="true">
+                <label>Non compilare questo campo se sei umano: <input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label>
+              </p>
+
               <div class="form-row">
                 <div class="field">
                   <label for="nome">Nome e cognome</label>

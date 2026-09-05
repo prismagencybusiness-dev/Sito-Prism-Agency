@@ -77,27 +77,23 @@
       status.classList.add("is-visible", kind === "success" ? "is-success" : "is-error");
     };
 
+    // Netlify Forms expects a normal x-www-form-urlencoded POST (not multipart
+    // FormData like Formspree/other services), sent to the page itself.
+    const encodeForNetlify = (data) =>
+      new URLSearchParams(data).toString();
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-
-      const action = form.getAttribute("action") || "";
-      if (!action || action.includes("YOUR_FORM_ID")) {
-        showStatus(
-          "error",
-          "Il form non è ancora collegato a un endpoint di invio. Configura Formspree (vedi commento in contatti.html) prima di pubblicare il sito."
-        );
-        return;
-      }
 
       submitBtn.disabled = true;
       const originalLabel = submitBtn.textContent;
       submitBtn.textContent = "Invio in corso...";
 
       try {
-        const response = await fetch(action, {
+        const response = await fetch("/contatti.html", {
           method: "POST",
-          body: new FormData(form),
-          headers: { Accept: "application/json" },
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: encodeForNetlify(new FormData(form)),
         });
 
         if (response.ok) {
@@ -107,7 +103,10 @@
           showStatus("error", "Non siamo riusciti a inviare il messaggio. Riprova o scrivici direttamente via email.");
         }
       } catch (err) {
-        showStatus("error", "Connessione non riuscita. Controlla la rete e riprova.");
+        showStatus(
+          "error",
+          "Invio non riuscito. Se stai testando il sito in locale è normale: Netlify Forms funziona solo a sito pubblicato. Altrimenti riprova o scrivici via email."
+        );
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = originalLabel;
