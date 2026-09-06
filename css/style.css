@@ -52,6 +52,7 @@
 /* ---- reset ---- */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+html, body { overflow-x: hidden; max-width: 100%; }
 body {
   margin: 0;
   background: var(--ink);
@@ -358,9 +359,12 @@ button, input, textarea, select { font-family: inherit; color: inherit; }
 }
 .hero-outro .hero-actions { justify-content: center; margin-top: 40px; margin-bottom: 0; }
 
+.chi-siamo-body { padding: 40px 0 108px; }
+
 @media (max-width: 900px) {
   .hero-title { padding-top: 140px; }
-  .hero-outro { padding: 72px 0 88px; }
+  .hero-outro { padding: 72px 0 56px; }
+  .chi-siamo-body { padding: 24px 0 72px; }
 }
 
 /* ============================================================
