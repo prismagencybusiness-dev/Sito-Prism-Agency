@@ -20,8 +20,12 @@ window.SITE_CONFIG = {
   facebookUrl: "",
 
   // Dati legali — vuoti finché non c'è una Partita IVA attiva.
+  // titolareNome: nome e cognome (o ragione sociale) del titolare del
+  // trattamento per /privacy. Se vuoto, la build stampa un avviso e la
+  // frase nella pagina resta generica (nessun nome viene inventato o
+  // pubblicato al posto suo — vedi scripts/build-static.js).
   partitaIva: "",
-  titolareTrattamento: "",
+  titolareNome: "",
 
   // Referente — se vuoto, /chi-siamo non viene creata (nessun dato inventato).
   referente: { nome: "", ruolo: "", bio: "", foto: "" },

@@ -748,3 +748,39 @@ button, input, textarea, select { font-family: inherit; color: inherit; }
   .whatsapp-float { right: 14px; bottom: 14px; width: 50px; height: 50px; }
   .whatsapp-float svg { width: 25px; height: 25px; }
 }
+
+/* ============================================================
+   FAQ — <details>/<summary> nativi: accessibili da tastiera senza JS.
+   Vive su .section-alt (sfondo chiaro) — colori scuri.
+   ============================================================ */
+.faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  border: 1px solid rgba(8, 7, 13, 0.1);
+  border-radius: var(--radius-m);
+  background: #fff;
+  padding: 0 24px;
+}
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 18px 4px;
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--c8);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item p { color: rgba(8, 7, 13, 0.62); font-size: 14.5px; line-height: 1.6; padding: 0 4px 20px; }
