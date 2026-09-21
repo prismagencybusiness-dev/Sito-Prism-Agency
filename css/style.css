@@ -6,9 +6,17 @@
    the only saturated thing on the page.
    ============================================================ */
 
-/* Manrope — self-hosted, unico file woff2 variabile (pesi 500/600),
-   subset latino (include à è é ì ò ù). Nessun caricamento da CDN.
-   File scaricato una tantum da Google Fonts e servito da /assets/fonts/. */
+/* Manrope, Unbounded, Plus Jakarta Sans — self-hosted, un file woff2
+   variabile per famiglia, subset latino (include à è é ì ò ù). Nessun
+   caricamento da fonts.googleapis.com / fonts.gstatic.com. File scaricati
+   una tantum da Google Fonts e serviti da /assets/fonts/.
+   Ogni fallback usa le metriche reali del webfont (unitsPerEm/ascent/
+   descent/xHeight, lette con fontkit) contro Arial come riferimento
+   (unitsPerEm 2048, ascent 90.53%, descent 21.19%, xHeight 51.86%):
+     size-adjust      = xHeight webfont / xHeight Arial
+     ascent-override  = ascent webfont / size-adjust
+     descent-override = descent webfont / size-adjust
+     line-gap-override= lineGap webfont / size-adjust */
 @font-face {
   font-family: "Manrope";
   font-style: normal;
@@ -17,14 +25,46 @@
   src: url("/assets/fonts/manrope-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* Fallback con metriche adattate a Manrope, per ridurre lo spostamento di
-   layout nell'istante fra il rendering col fallback e lo swap al webfont. */
 @font-face {
   font-family: "Manrope Fallback";
   src: local("Arial");
   size-adjust: 105%;
   ascent-override: 101%;
   descent-override: 27%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Unbounded";
+  font-style: normal;
+  font-weight: 500 800;
+  font-display: swap;
+  src: url("/assets/fonts/unbounded-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Unbounded Fallback";
+  src: local("Arial");
+  size-adjust: 109%;
+  ascent-override: 91%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/assets/fonts/plusjakartasans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Plus Jakarta Sans Fallback";
+  src: local("Arial");
+  size-adjust: 103%;
+  ascent-override: 100%;
+  descent-override: 21%;
   line-gap-override: 0%;
 }
 
@@ -56,8 +96,8 @@
   --spectrum-soft: linear-gradient(90deg, var(--c1) 0%, var(--c6) 50%, var(--c10) 100%);
 
   /* type */
-  --font-display: "Unbounded", system-ui, sans-serif;
-  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Unbounded", "Unbounded Fallback", system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", "Plus Jakarta Sans Fallback", system-ui, sans-serif;
   --font-label: "Manrope", "Manrope Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* scale */
@@ -220,7 +260,7 @@ button, input, textarea, select { font-family: inherit; color: inherit; }
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.02em;
-  color: rgba(245, 243, 251, 0.52); /* ~4.9:1 su --ink, vedi report contrasto */
+  color: rgba(245, 243, 251, 0.52); /* 5.26:1 su --ink, verificato via WCAG relative luminance */
   margin-top: 2px;
 }
 @media (max-width: 480px) {
@@ -586,7 +626,7 @@ button, input, textarea, select { font-family: inherit; color: inherit; }
 .footer-top { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; padding-bottom: 48px; }
 .footer-brand .brand { margin-bottom: 16px; }
 .site-footer .brand-word { color: var(--ink); }
-.site-footer .brand-word span { color: rgba(8, 7, 13, 0.6); } /* ~4.9:1 su --paper, vedi report contrasto */
+.site-footer .brand-word span { color: rgba(8, 7, 13, 0.6); } /* 5.25:1 su --paper, verificato via WCAG relative luminance */
 .footer-brand p { color: rgba(8, 7, 13, 0.62); font-size: 14.5px; max-width: 320px; }
 .footer-col h4 { font-family: var(--font-label); font-weight: 600; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(8, 7, 13, 0.45); margin-bottom: 18px; }
 .footer-col a { display: block; text-decoration: none; color: rgba(8, 7, 13, 0.62); font-size: 14.5px; padding: 7px 0; transition: color 0.2s ease; }
