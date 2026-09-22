@@ -7,11 +7,10 @@
 //   e fai commit anche dei file .html rigenerati.
 // Campi lasciati vuoti ("" o []) NON vengono mostrati: nessun dato inventato.
 window.SITE_CONFIG = {
-  // Contatti — oggi email Gmail e cellulare personale, da aggiornare qui quando
-  // saranno disponibili un'email con dominio proprio e un numero dedicato.
+  // Contatti — oggi email Gmail e numero aziendale dedicato.
   email: "prismagencybusiness@gmail.com",
-  phoneDisplay: "+39 388 639 1145",
-  phoneE164: "393886391145",
+  phoneDisplay: "+39 327 1458128",
+  phoneE164: "393271458128",
   whatsappMessage: "Ciao, vorrei informazioni su una consulenza gratuita.",
 
   // Social — Instagram attivo. Facebook compare nel footer solo se questo
