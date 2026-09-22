@@ -49,10 +49,6 @@
     revealEls.forEach((el) => el.classList.add("is-visible"));
   }
 
-  /* ---- footer year ---- */
-  const yearEl = document.querySelector("[data-year]");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
   /* ---- pre-fill "servizio d'interesse" from ?servizio= in the URL,
      used by the CTA links on servizi.html ---- */
   const serviceSelect = document.querySelector("#servizio");

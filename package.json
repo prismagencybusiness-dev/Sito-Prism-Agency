@@ -1,0 +1,10 @@
+{
+  "name": "prism-agency-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sito statico Prism Agency — nessuna dipendenza, solo script di build locali (Node core).",
+  "scripts": {
+    "build": "node scripts/build-static.js",
+    "check-config": "node scripts/check-config-sync.js"
+  }
+}

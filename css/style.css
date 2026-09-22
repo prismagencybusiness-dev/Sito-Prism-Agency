@@ -6,6 +6,68 @@
    the only saturated thing on the page.
    ============================================================ */
 
+/* Manrope, Unbounded, Plus Jakarta Sans — self-hosted, un file woff2
+   variabile per famiglia, subset latino (include à è é ì ò ù). Nessun
+   caricamento da fonts.googleapis.com / fonts.gstatic.com. File scaricati
+   una tantum da Google Fonts e serviti da /assets/fonts/.
+   Ogni fallback usa le metriche reali del webfont (unitsPerEm/ascent/
+   descent/xHeight, lette con fontkit) contro Arial come riferimento
+   (unitsPerEm 2048, ascent 90.53%, descent 21.19%, xHeight 51.86%):
+     size-adjust      = xHeight webfont / xHeight Arial
+     ascent-override  = ascent webfont / size-adjust
+     descent-override = descent webfont / size-adjust
+     line-gap-override= lineGap webfont / size-adjust */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500 600;
+  font-display: swap;
+  src: url("/assets/fonts/manrope-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Manrope Fallback";
+  src: local("Arial");
+  size-adjust: 105%;
+  ascent-override: 101%;
+  descent-override: 27%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Unbounded";
+  font-style: normal;
+  font-weight: 500 800;
+  font-display: swap;
+  src: url("/assets/fonts/unbounded-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Unbounded Fallback";
+  src: local("Arial");
+  size-adjust: 109%;
+  ascent-override: 91%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/assets/fonts/plusjakartasans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Plus Jakarta Sans Fallback";
+  src: local("Arial");
+  size-adjust: 103%;
+  ascent-override: 100%;
+  descent-override: 21%;
+  line-gap-override: 0%;
+}
+
 :root {
   /* ground */
   --ink: #08070d;
@@ -34,9 +96,9 @@
   --spectrum-soft: linear-gradient(90deg, var(--c1) 0%, var(--c6) 50%, var(--c10) 100%);
 
   /* type */
-  --font-display: "Unbounded", system-ui, sans-serif;
-  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Unbounded", "Unbounded Fallback", system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", "Plus Jakarta Sans Fallback", system-ui, sans-serif;
+  --font-label: "Manrope", "Manrope Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* scale */
   --container: 1180px;
@@ -110,9 +172,10 @@ button, input, textarea, select { font-family: inherit; color: inherit; }
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
+  font-weight: 600;
   font-size: 12px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--fg-muted);
 }
@@ -191,7 +254,18 @@ button, input, textarea, select { font-family: inherit; color: inherit; }
 .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
 .brand img { width: 34px; height: 34px; }
 .brand-word { font-family: var(--font-display); font-size: 16px; font-weight: 700; letter-spacing: 0.02em; line-height: 1.1; }
-.brand-word span { display: block; font-family: var(--font-mono); font-size: 10px; font-weight: 400; letter-spacing: 0.2em; color: var(--fg-faint); text-transform: uppercase; margin-top: 2px; }
+.brand-word span {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(245, 243, 251, 0.52); /* 5.26:1 su --ink, verificato via WCAG relative luminance */
+  margin-top: 2px;
+}
+@media (max-width: 480px) {
+  .brand-word span { font-size: 12px; }
+}
 
 .nav-links { display: flex; align-items: center; gap: 8px; }
 .nav-links a {
@@ -333,7 +407,7 @@ button, input, textarea, select { font-family: inherit; color: inherit; }
   left: 50%; bottom: 48px;
   transform: translateX(-50%);
   display: flex; align-items: center; gap: 10px;
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-family: var(--font-label); font-weight: 600; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--fg-faint);
   transition: opacity 0.5s var(--ease);
   z-index: 2;
@@ -347,7 +421,7 @@ button, input, textarea, select { font-family: inherit; color: inherit; }
 
 .scroll-cue {
   display: inline-flex; align-items: center; gap: 10px;
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  font-family: var(--font-label); font-weight: 600; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--fg-faint);
 }
 .hero-title-content .scroll-cue { margin-top: 34px; }
@@ -481,7 +555,7 @@ button, input, textarea, select { font-family: inherit; color: inherit; }
 .service-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; line-height: 1.25; }
 .service-card p { color: var(--fg-muted); font-size: 14.5px; line-height: 1.6; flex: 1; }
 .service-tag {
-  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  font-family: var(--font-label); font-weight: 600; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--accent); margin-bottom: 14px; display: block;
 }
 .service-more {
@@ -552,9 +626,9 @@ button, input, textarea, select { font-family: inherit; color: inherit; }
 .footer-top { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; padding-bottom: 48px; }
 .footer-brand .brand { margin-bottom: 16px; }
 .site-footer .brand-word { color: var(--ink); }
-.site-footer .brand-word span { color: rgba(8, 7, 13, 0.5); }
+.site-footer .brand-word span { color: rgba(8, 7, 13, 0.6); } /* 5.25:1 su --paper, verificato via WCAG relative luminance */
 .footer-brand p { color: rgba(8, 7, 13, 0.62); font-size: 14.5px; max-width: 320px; }
-.footer-col h4 { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(8, 7, 13, 0.45); margin-bottom: 18px; }
+.footer-col h4 { font-family: var(--font-label); font-weight: 600; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(8, 7, 13, 0.45); margin-bottom: 18px; }
 .footer-col a { display: block; text-decoration: none; color: rgba(8, 7, 13, 0.62); font-size: 14.5px; padding: 7px 0; transition: color 0.2s ease; }
 .footer-col a:hover { color: var(--ink); }
 .footer-social { display: flex; gap: 10px; margin-top: 4px; }
@@ -593,7 +667,7 @@ button, input, textarea, select { font-family: inherit; color: inherit; }
 .contact-line .ico svg { width: 18px; height: 18px; stroke: var(--c9); }
 .contact-line a, .contact-line span.value { font-weight: 700; font-size: 15.5px; text-decoration: none; }
 .contact-line a:hover { color: var(--c9); }
-.contact-line .label { display: block; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-faint); margin-bottom: 4px; }
+.contact-line .label { display: block; font-family: var(--font-label); font-weight: 600; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-faint); margin-bottom: 4px; }
 
 .contact-form-card {
   border: 1px solid var(--line);
@@ -692,7 +766,7 @@ button, input, textarea, select { font-family: inherit; color: inherit; }
   background: #fff;
 }
 .step .step-num {
-  font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.12em;
+  font-family: var(--font-label); font-weight: 600; font-size: 13px; letter-spacing: 0.08em;
   color: var(--step-accent, var(--c8)); margin-bottom: 16px; display: block;
 }
 .step h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; color: var(--ink); }
@@ -742,8 +816,45 @@ button, input, textarea, select { font-family: inherit; color: inherit; }
 .legal-list { margin: 12px 0 0; padding-left: 20px; list-style: disc; }
 .legal-list li { color: rgba(8, 7, 13, 0.68); font-size: 15.5px; line-height: 1.8; }
 .legal-updated { margin-top: 40px !important; font-size: 13px !important; color: rgba(8, 7, 13, 0.45) !important; }
+.legal-updated-top { margin: 0 0 32px !important; }
 
 @media (max-width: 600px) {
   .whatsapp-float { right: 14px; bottom: 14px; width: 50px; height: 50px; }
   .whatsapp-float svg { width: 25px; height: 25px; }
 }
+
+/* ============================================================
+   FAQ — <details>/<summary> nativi: accessibili da tastiera senza JS.
+   Vive su .section-alt (sfondo chiaro) — colori scuri.
+   ============================================================ */
+.faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  border: 1px solid rgba(8, 7, 13, 0.1);
+  border-radius: var(--radius-m);
+  background: #fff;
+  padding: 0 24px;
+}
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 18px 4px;
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--c8);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item p { color: rgba(8, 7, 13, 0.62); font-size: 14.5px; line-height: 1.6; padding: 0 4px 20px; }
